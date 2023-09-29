@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 // "children nos va a devolver lo que esté envuelto en el llamdo al componente"
-export function TwitterFollowCard({ formatUserName, name, userName = 'unknown', children }) {
+export function TwitterFollowCard({ formatUserName, name, userName = 'unknown', children, initialIsFollowing = false }) {
 
-    const [isFollowing, setIsFollowing] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
 
     const avatarSource = `https://unavatar.io/${userName}`;
     const followButtonText = isFollowing

@@ -8,7 +8,8 @@ export function App() {
             <TwitterFollowCard
                 formatUserName={formatUserName}
                 name='Javier Steven Franco Ospina'
-                userName='jsfranco96'>
+                userName='jsfranco96'
+                initialIsFollowing>
                 firstElementChildren
             </TwitterFollowCard>
 
