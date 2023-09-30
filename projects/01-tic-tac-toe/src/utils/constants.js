@@ -13,3 +13,11 @@ export const WINNER_COMBOS = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+
+export const STORAGE = {
+    board: 'board',
+    turn: 'turn',
+    winner: 'winner'
+};
+
+export const CLEAN_BOARD = Array(9).fill(null);

@@ -4,21 +4,26 @@ import Board from './components/Board';
 import WinnerModal from './components/WinnerModal';
 import Turn from './components/Turn';
 import confetti from 'canvas-confetti';
-import { TURNS } from './utils/constants';
+import { TURNS, STORAGE, CLEAN_BOARD } from './utils/constants';
 import { assingTurn, checkEndGame, checkWinner } from './logic/board';
-
-
-const cleanBoard = Array(9).fill(null);
+import { clearGameStorage, getStoredBoard, getStoredTurn, getStoredWinner, saveGame } from './logic/storage';
 
 function App() {
 
   //#region States
-  const [board, setBoard] = useState(cleanBoard)
+  const [board, setBoard] = useState(getStoredBoard())
 
-  const [turn, setTurn] = useState(TURNS.X);
+  const [turn, setTurn] = useState(getStoredTurn());
 
   // null es sin ganador, false es que hay un empate
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState(() => {
+    const storedWinner = getStoredWinner();
+    if (storedWinner) {
+      confetti();
+    }
+
+    return storedWinner;
+  });
   //#endregion
 
   //#region Logic
@@ -33,24 +38,29 @@ function App() {
     setBoard(newBoard);
 
     // Cambiamos el turno:
-    const newTurn = assingTurn;
+    const newTurn = assingTurn(turn);
     setTurn(newTurn);
 
+    // Guardamos la partida en el localStorage:
+    
     // Revisar si hay un ganador:
     const newWinner = checkWinner(newBoard);
-
+    
     if (newWinner) {
       setWinner(newWinner);
       confetti();
     } else if (checkEndGame(newBoard)) {
       setWinner(false);
     }
+
+    saveGame(newBoard, newTurn, newWinner);
   }
 
   const clearGame = () => {
-    setBoard(cleanBoard);
+    setBoard(CLEAN_BOARD);
     setWinner(null);
     setTurn(TURNS.X)
+    clearGameStorage();
   }
   //#endregion
 
