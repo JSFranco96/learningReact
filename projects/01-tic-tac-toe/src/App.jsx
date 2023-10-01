@@ -4,7 +4,7 @@ import Board from './components/Board';
 import WinnerModal from './components/WinnerModal';
 import Turn from './components/Turn';
 import confetti from 'canvas-confetti';
-import { TURNS, STORAGE, CLEAN_BOARD } from './utils/constants';
+import { TURNS, CLEAN_BOARD } from './utils/constants';
 import { assingTurn, checkEndGame, checkWinner } from './logic/board';
 import { clearGameStorage, getStoredBoard, getStoredTurn, getStoredWinner, saveGame } from './logic/storage';
 
